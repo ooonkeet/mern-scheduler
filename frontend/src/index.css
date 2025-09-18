@@ -5,17 +5,23 @@
 
 /* Light mode */
 :root {
-  --background: #f0fdf4; /* light green-ish background */
-  --foreground: #065f46; /* dark green text */
+  --background: #ffffff; /* keep plain color fallback */
+  --background-gradient: linear-gradient(135deg, #ffffff, #e9d5ff); /* gradient */
+  /* --background: #f0fdf4; light green-ish background */
+  /* --foreground: #065f46; dark green text */
+  --foreground: #2d1b69; /* deep purple text */
+  --sidebar-foreground: #e9d5ff; /* lavender text (visible on dark bg) */
   --card: #ffffff;
-  --card-foreground: #065f46;
+  /* --card-foreground: #065f46; */
+  --card-foreground: #3b0764;
   --popover: #ffffff;
-  --popover-foreground: #065f46;
+  /* --popover-foreground: #065f46; */
+  --popover-foreground: #3b0764;
 
-  --primary: #10b981; /* emerald green for active buttons */
-  --primary-foreground: #ffffff;
+  /* --primary: #10b981; /* emerald green for active buttons */
+  /* --primary-foreground: #ffffff; */
 
-  --secondary: #6ee7b7;
+  /* --secondary: #6ee7b7;
   --secondary-foreground: #065f46;
 
   --muted: #d1fae5;
@@ -29,9 +35,27 @@
 
   --border: #d1fae5;
   --input: #d1fae5;
-  --ring: #10b981;
+  --ring: #10b981; */ 
+  --primary: #8b5cf6; /* purple-500 */
+  --primary-foreground: #ffffff;
 
-  --sidebar: #f0fdf4;
+  --secondary: #ddd6fe; /* purple-200 */
+  --secondary-foreground: #3b0764;
+
+  --muted: #f3e8ff; /* lavender */
+  --muted-foreground: #3b0764;
+
+  --accent: #c4b5fd; /* purple-300 */
+  --accent-foreground: #3b0764;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #e9d5ff; /* soft border */
+  --input: #e9d5ff;
+  --ring: #8b5cf6;
+
+  /* --sidebar: #f0fdf4;
   --sidebar-foreground: #065f46;
   --sidebar-primary: #10b981;
   --sidebar-primary-foreground: #ffffff;
@@ -39,22 +63,38 @@
   --sidebar-accent-foreground: #065f46;
   --sidebar-border: #d1fae5;
 
-  --radius: 0.625rem;
+  --radius: 0.625rem; */
+  --sidebar: rgba(255, 255, 255, 0.6); /* glass effect */
+  .sidebar-glass {
+  background: var(--sidebar);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--sidebar-border);
+  color: var(--sidebar-foreground);
+  }
+  --sidebar-foreground: #3b0764;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #c4b5fd;
+  --sidebar-accent-foreground: #3b0764;
+  --sidebar-border: #ddd6fe;
+
+  --radius: 0.75rem;
 }
 
 /* Dark mode */
-.dark {
-  --background: #064e3b; /* dark green background */
+/* .dark {
+  --background: #064e3b; dark green background
   --foreground: #d1fae5; /* light green text */
-  --card: #065f46;
+  /* --card: #065f46;
   --card-foreground: #ffffff;
   --popover: #065f46;
   --popover-foreground: #ffffff;
 
   --primary: #059669; /* darker emerald green */
-  --primary-foreground: #ffffff;
+  /* --primary-foreground: #ffffff; */
 
-  --secondary: #10b981;
+  /* --secondary: #10b981;
   --secondary-foreground: #ffffff;
 
   --muted: #064e3b;
@@ -76,8 +116,47 @@
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #059669;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #047857;
+  --sidebar-border: #047857; */ 
+/* }  */
+.dark {
+  --background: #1f1137;
+  --background: linear-gradient(135deg, #1f1137, #4b1d74); /* deep purple gradient */
+  --foreground: #f3e8ff; /* lavender text */
+
+  --card: #2e1065;
+  --card-foreground: #e9d5ff;
+
+  --popover: #2e1065;
+  --popover-foreground: #e9d5ff;
+
+  --primary: #a78bfa; /* purple-400 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #7c3aed;
+  --secondary-foreground: #ffffff;
+
+  --muted: #3b0764;
+  --muted-foreground: #c4b5fd;
+
+  --accent: #7c3aed;
+  --accent-foreground: #ffffff;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #4c1d95;
+  --input: #4c1d95;
+  --ring: #a78bfa;
+
+  --sidebar: rgba(30, 27, 75, 0.8); /* glass effect */
+  --sidebar-foreground: #e9d5ff;
+  --sidebar-primary: #a78bfa;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #7c3aed;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #4c1d95;
 }
+
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
@@ -119,6 +198,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+      background: var(--background-gradient); /* use gradient here */
+      color: var(--foreground);
+    /* @apply bg-background text-foreground; */
   }
 }

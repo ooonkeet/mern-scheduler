@@ -24,7 +24,8 @@ export default function Table({ columns, data, onEdit, onDelete }) {
 
   return (
     <table className="w-full table-auto border border-gray-200">
-      <thead className="bg-gray-100">
+      {/* <thead className="bg-gray-100"> */}
+      <thead className="bg-purple-100 text-purple-900">
         <tr>
           {columns.map((col) => (
             <th key={col} className="px-4 py-2 text-left">

@@ -8,12 +8,12 @@ export default function Topbar({ activeSection }) {
       case "classSettings":
         return "Class Settings Management"
       default:
-        return "Dashboard"
+        return "Admin Dashboard"
     }
   }
 
   return (
-    <div className="h-12 bg-muted border-b border-border flex items-center px-6">
+    <div className="h-12 bg-muted border-b border-border flex items-center justify-center">
       <h2 className="text-lg font-semibold text-foreground">{getSectionTitle()}</h2>
     </div>
   )

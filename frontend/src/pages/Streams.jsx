@@ -82,7 +82,7 @@ const Streams = () => {
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Streams</h1>
-          <button
+          {/* <button
             className="px-4 py-2 bg-emerald-600 text-white rounded"
             onClick={() => {
               setEditStream(null);
@@ -90,7 +90,10 @@ const Streams = () => {
             }}
           >
             Add Stream
-          </button>
+          </button> */}
+          <button
+          className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-200 to-purple-300 text-purple-900 font-medium shadow hover:from-purple-300 hover:to-purple-400 transition"
+          onClick={() => {setEditStream(null);setShowModal(true);}}> Add Stream </button>
         </div>
         <Table
           columns={['Name', 'Program', 'Student Intake', 'Number of Sections']}

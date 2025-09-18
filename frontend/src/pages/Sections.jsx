@@ -82,7 +82,7 @@ const Sections = () => {
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Sections</h1>
-          <button
+          {/* <button
             className="px-4 py-2 bg-emerald-600 text-white rounded"
             onClick={() => {
               setEditSection(null);
@@ -90,7 +90,10 @@ const Sections = () => {
             }}
           >
             Add Section
-          </button>
+          </button> */}
+          <button
+          className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-200 to-purple-300 text-purple-900 font-medium shadow hover:from-purple-300 hover:to-purple-400 transition"
+          onClick={() => {setEditSection(null);setShowModal(true)}}> Add Section </button>
         </div>
         <Table
           columns={['Name', 'Stream', 'Year', 'Semester', 'Total Students']}
