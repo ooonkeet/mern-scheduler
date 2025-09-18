@@ -45,7 +45,9 @@ const Universities = () => {
       if (editUniversity) {
         // update university
         await axios.put(
-          `${import.meta.env.VITE_BASE_URL}/api/v1/university/uni/${editUniversity._id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/v1/university/uni/${
+            editUniversity._id
+          }`,
           formData
         );
       } else {
@@ -67,10 +69,17 @@ const Universities = () => {
     <div className="flex">
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold text-blue-600">Universities</h1>
+          <h1 className="text-2xl font-bold text-blue-600">Sections</h1>
           <button
-          className="text-white font-medium shadow hover:from-blue-600 hover:to-blue-700 transition"
-          onClick={() => {setEditUniversity(null);setShowModal(true)}}>Add University</button>
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white font-medium shadow hover:from-blue-600 hover:to-blue-700 transition"
+            onClick={() => {
+              setEditSection(null);
+              setShowModal(true);
+            }}
+          >
+            {' '}
+            Add University{' '}
+          </button>
         </div>
         <Table
           columns={['Name']}
@@ -84,9 +93,7 @@ const Universities = () => {
             open={showModal}
             onClose={() => setShowModal(false)}
             title={editUniversity ? 'Edit University' : 'Add University'}
-            fields={[
-              { name: 'name', label: 'University Name', type: 'text' }
-            ]}
+            fields={[{ name: 'name', label: 'University Name', type: 'text' }]}
             defaultValues={editUniversity || {}}
             onSubmit={handleSubmit}
           />
