@@ -13,8 +13,6 @@ export const createUniversity = async (req, res) => {
 export const getUniversities = async (req, res) => {
   try {
     const university= await University.find({});
-    console.log(university);
-    
     res.json(university);
   } catch (error) {
     res.status(500).json({ message: error.message });
