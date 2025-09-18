@@ -42,3 +42,24 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Green loader bar under toast */
+.custom-toast::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: #22c55e; /* emerald-500 green */
+  animation: shrink 3s linear forwards;
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

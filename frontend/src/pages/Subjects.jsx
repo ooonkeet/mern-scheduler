@@ -104,18 +104,9 @@ const Subjects = () => {
     <div className="flex">
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Subjects</h1>
-          {/* <button
-            className="px-4 py-2 bg-emerald-600 text-white rounded"
-            onClick={() => {
-              setEditSubject(null);
-              setShowModal(true);
-            }}
-          >
-            Add Subject
-          </button> */}
+          <h1 className="text-2xl font-bold text-blue-600">Subjects</h1>
           <button
-          className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-200 to-purple-300 text-purple-900 font-medium shadow hover:from-purple-300 hover:to-purple-400 transition"
+          className="text-white font-medium shadow hover:from-blue-600 hover:to-blue-700 transition"
           onClick={() => {setEditSubject(null);setShowModal(true);}}> Add Subject </button>
         </div>
         <Table

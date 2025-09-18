@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function Programs() {
   const [programs, setPrograms] = useState([]);
-  const [universities, setUniversities] = useState([]); 
+  const [universities, setUniversities] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editProgram, setEditProgram] = useState(null);
 
@@ -40,7 +40,7 @@ export default function Programs() {
 
   useEffect(() => {
     fetchPrograms();
-    fetchUniversities();  
+    fetchUniversities();
   }, []);
 
   const handleEdit = (program) => {
@@ -76,19 +76,17 @@ export default function Programs() {
     <div className="flex">
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Programs</h1>
-          {/* <button
-            className="px-4 py-2 bg-emerald-600 text-white rounded"
+          <h1 className="text-2xl font-bold text-blue-700">Programs</h1>
+          <button
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white font-medium shadow hover:from-blue-600 hover:to-blue-700 transition"
             onClick={() => {
               setEditProgram(null);
               setShowModal(true);
             }}
           >
-            Add Program
-          </button> */}
-          <button
-          className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-200 to-purple-300 text-purple-900 font-medium shadow hover:from-purple-300 hover:to-purple-400 transition"
-          onClick={() => {setEditProgram(null); setShowModal(true);}}> Add Program </button>
+            {' '}
+            Add Program{' '}
+          </button>
         </div>
         <Table
           columns={['Name', 'University']}

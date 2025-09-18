@@ -81,25 +81,23 @@ const Streams = () => {
     <div className="flex">
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Streams</h1>
-          {/* <button
-            className="px-4 py-2 bg-emerald-600 text-white rounded"
+          <h1 className="text-2xl font-bold text-blue-600">Streams</h1>
+          <button
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white font-medium shadow hover:from-blue-600 hover:to-blue-700 transition"
             onClick={() => {
               setEditStream(null);
               setShowModal(true);
             }}
           >
-            Add Stream
-          </button> */}
-          <button
-          className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-200 to-purple-300 text-purple-900 font-medium shadow hover:from-purple-300 hover:to-purple-400 transition"
-          onClick={() => {setEditStream(null);setShowModal(true);}}> Add Stream </button>
+            {' '}
+            Add Stream{' '}
+          </button>
         </div>
         <Table
           columns={['Name', 'Program', 'Student Intake', 'Number of Sections']}
-          data={streams.map(stream => ({
+          data={streams.map((stream) => ({
             ...stream,
-            program: stream.program?.name || 'N/A'
+            program: stream.program?.name || 'N/A',
           }))}
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -116,21 +114,21 @@ const Streams = () => {
                 name: 'program',
                 label: 'Program',
                 type: 'select',
-                options: programs.map(program => ({
+                options: programs.map((program) => ({
                   value: program._id,
-                  label: program.name
-                }))
+                  label: program.name,
+                })),
               },
               {
                 name: 'studentIntake',
                 label: 'Student Intake',
-                type: 'number'
+                type: 'number',
               },
               {
                 name: 'numberOfSections',
                 label: 'Number of Sections',
-                type: 'number'
-              }
+                type: 'number',
+              },
             ]}
             defaultValues={editStream || {}}
             onSubmit={handleSubmit}

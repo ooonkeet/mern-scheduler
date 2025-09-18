@@ -21,7 +21,10 @@ const ClassSettings = () => {
       if (Array.isArray(res.data)) {
         setClassSettings(res.data);
       } else {
-        console.error('Expected array of class settings but got:', typeof res.data);
+        console.error(
+          'Expected array of class settings but got:',
+          typeof res.data
+        );
         setClassSettings([]);
       }
     } catch (error) {
@@ -36,8 +39,7 @@ const ClassSettings = () => {
       const res = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/api/v1/streams/getstreams`
       );
-      
-      
+
       setStreams(res.data);
     } catch (error) {
       console.log(error);
@@ -73,7 +75,11 @@ const ClassSettings = () => {
         return;
       }
 
-      if (!formData.classDuration || formData.classDuration < 30 || formData.classDuration > 120) {
+      if (
+        !formData.classDuration ||
+        formData.classDuration < 30 ||
+        formData.classDuration > 120
+      ) {
         alert('Class duration must be between 30 and 120 minutes');
         return;
       }
@@ -89,7 +95,10 @@ const ClassSettings = () => {
       }
 
       // Validate break times if either is provided
-      if ((formData.breakStart && !formData.breakEnd) || (!formData.breakStart && formData.breakEnd)) {
+      if (
+        (formData.breakStart && !formData.breakEnd) ||
+        (!formData.breakStart && formData.breakEnd)
+      ) {
         alert('Both break start and end times must be provided');
         return;
       }
@@ -100,14 +109,16 @@ const ClassSettings = () => {
         classDays,
         break: {
           start: formData.breakStart || '',
-          end: formData.breakEnd || ''
-        }
+          end: formData.breakEnd || '',
+        },
       };
 
       if (editClassSetting) {
         // update class setting
         await axios.put(
-          `${import.meta.env.VITE_BASE_URL}/api/v1/classSettings/${editClassSetting._id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/v1/classSettings/${
+            editClassSetting._id
+          }`,
           submitData
         );
       } else {
@@ -123,36 +134,39 @@ const ClassSettings = () => {
       console.error('Failed to save class setting:', error);
       alert(error.response?.data?.message || 'Failed to save class setting');
     }
-  };  return (
+  };
+  return (
     <div className="flex">
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Class Settings</h1>
-          {/* <button
-            className="px-4 py-2 bg-emerald-600 text-white rounded"
+          <h1 className="text-2xl font-bold text-blue-700">Class Settings</h1>
+          <button
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white font-medium shadow hover:from-blue-600 hover:to-blue-700 transition"
             onClick={() => {
               setEditClassSetting(null);
               setShowModal(true);
             }}
           >
-            Add Class Setting
-          </button> */}
-          <button
-          className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-200 to-purple-300 text-purple-900 font-medium shadow hover:from-purple-300 hover:to-purple-400 transition"
-          onClick={() => {setEditClassSetting(null); setShowModal(true);}}> Add Class Settings </button>
+            {' '}
+            Add Class Settings{' '}
+          </button>
         </div>
         <Table
           columns={['Stream', 'Class Duration', 'Break Time', 'Class Days']}
-          data={classSettings.map(setting => ({
+          data={classSettings.map((setting) => ({
             _id: setting._id,
             stream: setting.stream?.name || 'N/A',
-            'class duration': setting.classDuration ? `${setting.classDuration} minutes` : 'N/A',
-            'break time': (setting.break?.start && setting.break?.end) 
-              ? `${setting.break.start} - ${setting.break.end}` 
-              : 'Not set',
-            'class days': Array.isArray(setting.classDays) && setting.classDays.length > 0 
-              ? setting.classDays.join(', ') 
-              : 'None selected'
+            'class duration': setting.classDuration
+              ? `${setting.classDuration} minutes`
+              : 'N/A',
+            'break time':
+              setting.break?.start && setting.break?.end
+                ? `${setting.break.start} - ${setting.break.end}`
+                : 'Not set',
+            'class days':
+              Array.isArray(setting.classDays) && setting.classDays.length > 0
+                ? setting.classDays.join(', ')
+                : 'None selected',
           }))}
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -162,17 +176,19 @@ const ClassSettings = () => {
           <FormModal
             open={showModal}
             onClose={() => setShowModal(false)}
-            title={editClassSetting ? 'Edit Class Setting' : 'Add Class Setting'}
+            title={
+              editClassSetting ? 'Edit Class Setting' : 'Add Class Setting'
+            }
             fields={[
               {
                 name: 'stream',
                 label: 'Stream',
                 type: 'select',
                 required: true,
-                options: streams.map(stream => ({
+                options: streams.map((stream) => ({
                   value: stream._id,
-                  label: stream.name
-                }))
+                  label: stream.name,
+                })),
               },
               {
                 name: 'classDuration',
@@ -183,8 +199,8 @@ const ClassSettings = () => {
                   min: 30,
                   max: 120,
                   step: 15,
-                  placeholder: 'Enter duration between 30-120 minutes'
-                }
+                  placeholder: 'Enter duration between 30-120 minutes',
+                },
               },
               {
                 name: 'breakStart',
@@ -193,8 +209,8 @@ const ClassSettings = () => {
                 required: false,
                 props: {
                   placeholder: 'HH:mm',
-                  pattern: '^([01]?[0-9]|2[0-3]):[0-5][0-9]$'
-                }
+                  pattern: '^([01]?[0-9]|2[0-3]):[0-5][0-9]$',
+                },
               },
               {
                 name: 'breakEnd',
@@ -203,36 +219,47 @@ const ClassSettings = () => {
                 required: false,
                 props: {
                   placeholder: 'HH:mm',
-                  pattern: '^([01]?[0-9]|2[0-3]):[0-5][0-9]$'
-                }
+                  pattern: '^([01]?[0-9]|2[0-3]):[0-5][0-9]$',
+                },
               },
               {
                 name: 'classDays',
                 label: 'Class Days',
                 type: 'checkboxGroup',
                 required: true,
-                options: WEEKDAYS.map(day => ({
+                options: WEEKDAYS.map((day) => ({
                   value: day,
-                  label: day
-                }))
-              }
+                  label: day,
+                })),
+              },
             ]}
-            defaultValues={editClassSetting ? {
-              stream: editClassSetting.stream?._id || '',
-              classDuration: editClassSetting.classDuration || 45,
-              breakStart: editClassSetting.break?.start || '',
-              breakEnd: editClassSetting.break?.end || '',
-              classDays: WEEKDAYS.reduce((acc, day) => ({
-                ...acc,
-                [day]: editClassSetting.classDays?.includes(day) || false
-              }), {})
-            } : {
-              stream: '',
-              classDuration: 45,
-              breakStart: '',
-              breakEnd: '',
-              classDays: WEEKDAYS.reduce((acc, day) => ({ ...acc, [day]: false }), {})
-            }}
+            defaultValues={
+              editClassSetting
+                ? {
+                    stream: editClassSetting.stream?._id || '',
+                    classDuration: editClassSetting.classDuration || 45,
+                    breakStart: editClassSetting.break?.start || '',
+                    breakEnd: editClassSetting.break?.end || '',
+                    classDays: WEEKDAYS.reduce(
+                      (acc, day) => ({
+                        ...acc,
+                        [day]:
+                          editClassSetting.classDays?.includes(day) || false,
+                      }),
+                      {}
+                    ),
+                  }
+                : {
+                    stream: '',
+                    classDuration: 45,
+                    breakStart: '',
+                    breakEnd: '',
+                    classDays: WEEKDAYS.reduce(
+                      (acc, day) => ({ ...acc, [day]: false }),
+                      {}
+                    ),
+                  }
+            }
             onSubmit={handleSubmit}
           />
         )}
