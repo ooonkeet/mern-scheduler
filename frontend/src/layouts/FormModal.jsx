@@ -31,6 +31,7 @@ export default function FormModal({
 
   const submitHandler = (data) => {
     onSubmit(data);
+    
     handleClose();
   };
 

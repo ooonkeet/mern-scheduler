@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/layouts/Table';
 import FormModal from '@/layouts/FormModal';
 import axios from 'axios';
-
+import toast from 'react-hot-toast';
 const Universities = () => {
   const [universities, setUniversities] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -50,6 +50,7 @@ const Universities = () => {
           }`,
           formData
         );
+        toast.success('Edited successfully!');
       } else {
         // create university
         await axios.post(

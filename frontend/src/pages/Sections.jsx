@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/layouts/Table';
 import FormModal from '@/layouts/FormModal';
 import axios from 'axios';
-
+import toast from 'react-hot-toast';
 const Sections = () => {
   const [sections, setSections] = useState([]);
   const [streams, setStreams] = useState([]);
@@ -62,6 +62,7 @@ const Sections = () => {
           `${import.meta.env.VITE_BASE_URL}/api/v1/sections/${editSection._id}`,
           formData
         );
+        toast.success('Edited successfully!');
       } else {
         // create section
         await axios.post(

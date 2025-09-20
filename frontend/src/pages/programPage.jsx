@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/layouts/Table';
 import FormModal from '@/layouts/FormModal';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function Programs() {
   const [programs, setPrograms] = useState([]);
@@ -46,6 +47,7 @@ export default function Programs() {
   const handleEdit = (program) => {
     setEditProgram(program);
     setShowModal(true);
+   
   };
 
   const handleDelete = async (id) => {
@@ -62,6 +64,7 @@ export default function Programs() {
         `${import.meta.env.VITE_BASE_URL}/api/v1/programs/${editProgram._id}`,
         formData
       );
+      toast.success('Edited successfully!');
     } else {
       // create program
       await axios.post(
@@ -98,7 +101,7 @@ export default function Programs() {
         {showModal && (
           <FormModal
             open={showModal}
-            onClose={() => setShowModal(false)}
+            onClose={() => {setShowModal(false);}}
             title={editProgram ? 'Edit Program' : 'Add Program'}
             fields={[
               { name: 'name', label: 'Program Name', type: 'text' },

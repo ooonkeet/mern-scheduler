@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/layouts/Table';
 import FormModal from '@/layouts/FormModal';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -54,6 +55,7 @@ const ClassSettings = () => {
   const handleEdit = (classSetting) => {
     setEditClassSetting(classSetting);
     setShowModal(true);
+    toast.success('Edited successfully!');
   };
 
   const handleDelete = async (id) => {
@@ -61,6 +63,7 @@ const ClassSettings = () => {
       await axios.delete(
         `${import.meta.env.VITE_BASE_URL}/api/v1/classSettings/${id}`
       );
+      
       fetchClassSettings();
     } catch (error) {
       console.error('Failed to delete class setting:', error);

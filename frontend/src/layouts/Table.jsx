@@ -70,7 +70,7 @@ export default function Table({ columns, data, onEdit, onDelete }) {
                   className="bg-green-600 text-white hover:bg-green-700 transition"
                   onClick={() => {
                     onEdit(row);
-                    toast.success('Edited successfully!');
+                    
                   }}
                 >
                   Edit

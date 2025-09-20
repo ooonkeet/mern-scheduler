@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/layouts/Table';
 import FormModal from '@/layouts/FormModal';
 import axios from 'axios';
-
+import toast from 'react-hot-toast';
 const Streams = () => {
   const [streams, setStreams] = useState([]);
   const [programs, setPrograms] = useState([]);
@@ -62,6 +62,7 @@ const Streams = () => {
           `${import.meta.env.VITE_BASE_URL}/api/v1/streams/${editStream._id}`,
           formData
         );
+        toast.success('Edited successfully!');
       } else {
         // create stream
         await axios.post(

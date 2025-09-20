@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/layouts/Table';
 import FormModal from '@/layouts/FormModal';
 import axios from 'axios';
-
+import toast from 'react-hot-toast';
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [streams, setStreams] = useState([]);
@@ -93,6 +93,7 @@ const Subjects = () => {
           }`,
           submitData
         );
+        toast.success('Edited successfully!');
       } else {
         // create subject
         await axios.post(
