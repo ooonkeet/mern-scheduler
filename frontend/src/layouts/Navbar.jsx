@@ -1,8 +1,18 @@
-import { Button } from "@/components/ui/button"
-import { Bell, User, Search, Calendar } from "lucide-react"
-import { Input } from "@/components/ui/input"
+import { Button } from '@/components/ui/button';
+import { Bell, Search, Calendar, LogOut } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { useAuthStore } from '../store/authStore';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+  const { logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); // redirect to login after logout
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white/98 backdrop-blur-md shadow-sm border-b border-slate-100">
       <div className="flex h-16 items-center px-6 justify-between">
@@ -20,34 +30,52 @@ export default function Navbar() {
             <Input
               type="search"
               placeholder="Search college, faculty, stream..."
-              className="pl-10 w-full bg-slate-50/80 border-slate-200/60 placeholder:text-slate-400 text-slate-700 focus:ring-1 focus:ring-slate-300 focus:border-slate-300 rounded-lg shadow-sm"
+              className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             />
           </div>
         </div>
 
         {/* Right side icons */}
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="Notifications"
-            type="button"
-            className="text-slate-500 hover:bg-slate-100 hover:text-slate-700 relative hover:shadow-sm transition-all duration-200"
-          >
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 h-3 w-3 bg-orange-400 rounded-full text-xs shadow-sm"></span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="User Menu"
-            type="button"
-            className="text-slate-500 hover:bg-slate-100 hover:text-slate-700 hover:shadow-sm transition-all duration-200"
-          >
-            <User className="h-5 w-5" />
-          </Button>
+          {/* Notifications */}
+          <div className="relative group">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Notifications"
+              type="button"
+              className="text-slate-500 hover:bg-slate-100 hover:text-slate-700 relative hover:shadow-sm transition-all duration-200"
+            >
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-3 w-3 bg-orange-400 rounded-full text-xs shadow-sm"></span>
+            </Button>
+
+            {/* Tooltip */}
+            <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-blue-600 bg-slate-50 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              Notifications
+            </span>
+          </div>
+
+          {/* Logout */}
+          <div className="relative group">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Logout"
+              type="button"
+              className="text-slate-500 hover:bg-slate-100 hover:text-slate-700 relative hover:shadow-sm transition-all duration-200"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-5 w-5" />
+            </Button>
+
+            {/* Tooltip */}
+            <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-blue-600 bg-slate-50 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              Logout
+            </span>
+          </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
