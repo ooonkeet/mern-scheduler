@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '../store/authStore';
+import { Eye, EyeOff } from 'lucide-react';
 
 function LoginPage() {
   const [selectedRole, setSelectedRole] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const { login, isAuthenticated, initializeAuth, isLoggingIn, logout } =
+  const { login, isAuthenticated, initializeAuth, isLoggingIn } =
     useAuthStore();
 
   const ROLES = ['admin', 'faculty', 'student'];
@@ -27,24 +29,23 @@ function LoginPage() {
     const success = await login(selectedRole, password);
     if (success) navigate('/'); // navigate on successful login
   };
-
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 font-sans">
-      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">
-          Login
-        </h1>
-        <p className="text-center text-gray-500 mb-6">
-          Select your role to continue
-        </p>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 font-sans">
+      <div className="rounded-2xl shadow-2xl border border-slate-200 p-8 w-full max-w-md backdrop-blur-sm bg-white/95">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">
+            Welcome Back
+          </h1>
+          <p className="text-slate-600">Select your role to continue</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
               Select Role
             </label>
             <select
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all duration-200 text-slate-700"
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
             >
@@ -58,39 +59,60 @@ function LoginPage() {
           </div>
 
           {selectedRole && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="animate-in slide-in-from-top-2 duration-300">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Password
               </label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  className="w-full px-4 py-3 pr-12 border border-slate-300 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all duration-200 text-slate-700"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-500 hover:text-blue-800 transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
           )}
 
           <button
             type="submit"
             disabled={!selectedRole || !password || isLoggingIn}
-            className={`w-full py-2 rounded-lg text-white font-semibold transition ${
+            className={`w-full py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
               !selectedRole || !password || isLoggingIn
-                ? 'bg-gray-300 cursor-not-allowed'
-                : 'bg-indigo-500 hover:bg-indigo-600'
+                ? 'bg-slate-400 cursor-not-allowed opacity-60'
+                : 'bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-600 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]'
             }`}
           >
-            {isLoggingIn ? 'Logging in...' : 'Login'}
+            {isLoggingIn ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Logging in...</span>
+              </div>
+            ) : (
+              'Sign In'
+            )}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Secure access to your university portal
-        </p>
+        <div className="mt-8 pt-6 border-t border-slate-200">
+          <p className="text-center text-sm text-slate-500">
+            🔒 Secure access to your university portal
+          </p>
+        </div>
       </div>
     </div>
   );
 }
-
 export default LoginPage;
