@@ -17,8 +17,8 @@ function LoginPage() {
 
   useEffect(() => {
     initializeAuth();
-    if(isAuthenticated &&user?.role==='modifier' ) navigate("/input")
-    else if (isAuthenticated) navigate('/'); // redirect if already logged in
+    
+   if (isAuthenticated) navigate('/'); // redirect if already logged in
   }, [isAuthenticated]);
 
   const handleSubmit = async (e) => {
@@ -28,8 +28,8 @@ function LoginPage() {
     if (!password) return toast.error('Please enter your password!');
 
     const success = await login(selectedRole, password);
-    if(success && user?.role==="modifier") navigate('/input')
-    else if (success) navigate('/'); // navigate on successful login
+    // if(success && user?.role==="modifier") navigate('/input')
+   if (success) navigate('/'); // navigate on successful login
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 font-sans">
