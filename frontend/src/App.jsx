@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '@/layouts/Navbar';
 import Sidebar from '@/layouts/Sidebar';
@@ -13,13 +13,56 @@ import Sections from './pages/Sections';
 import Subjects from './pages/Subjects';
 import ClassSettings from './pages/ClassSettings';
 import LoginPage from './pages/loginPage';
+import TimeTablePage from './pages/TimeTablePage';
+import InputForm from './components/ui/InputFormForTimeTable';
+
 
 function App() {
-  const { isAuthenticated, initializeAuth } = useAuthStore();
+  const { isAuthenticated, user, initializeAuth } = useAuthStore();
 
   useEffect(() => {
     initializeAuth();
   }, []);
+
+  // Modifier role: show timetable generator
+  if (isAuthenticated && user?.role === 'modifier') {
+    console.log(user.role);
+    
+    return (
+      <BrowserRouter>
+      <div className="max-w-6xl mx-auto my-6 p-4">
+        <h1 className="mb-3">
+
+          <Link to="/input" className="no-underline text-inherit">
+            Timetable Generator
+          </Link>
+        </h1>
+        <Routes>
+          <Route path="/input" element={<InputForm />} />
+          <Route path="/timetable" element={<TimeTablePage />} />
+        </Routes>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: "#f0fdf4",
+              color: "#166534",
+              border: "1px solid #bbf7d0",
+              borderRadius: "8px",
+              padding: "12px 16px",
+              position: "relative",
+              overflow: "hidden",
+            },
+            className: "custom-toast",
+          }}
+        />
+      </div>
+      </BrowserRouter>
+    );
+  }
+
+  // Other users: show dashboard
 
   return (
     <BrowserRouter>
